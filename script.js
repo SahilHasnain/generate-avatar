@@ -8,6 +8,11 @@ document.addEventListener("DOMContentLoaded", function () {
   const iconButtons = document.querySelectorAll(".icon-btn");
   const downloadBtn = document.getElementById("downloadBtn");
 
+  // Set default to free website offer
+  avatarContainer.classList.remove("gradient-bg");
+  avatarContainer.classList.add("gradient-free");
+  styleSelect.value = "gradient-free";
+
   // Update avatar text when select changes
   textSelect.addEventListener("change", function () {
     avatarText.textContent = this.value;
@@ -21,17 +26,19 @@ document.addEventListener("DOMContentLoaded", function () {
       "gradient-bg-2",
       "gradient-bg-3",
       "gradient-bg-4",
-      "gradient-bg-5"
+      "gradient-bg-5",
+      "gradient-bg-6",
+      "gradient-free"
     );
     // Add selected gradient class
     avatarContainer.classList.add(this.value);
 
-    // If special offer gradient is selected, show pulsing animation
-    const limitTimeOfferBadge = document.querySelector(".animate-pulse");
-    if (this.value === "gradient-bg-5" && limitTimeOfferBadge) {
-      limitTimeOfferBadge.style.display = "inline-block";
-    } else if (limitTimeOfferBadge) {
-      limitTimeOfferBadge.style.display = "inline-block";
+    // Update text for free website offer gradients
+    if (this.value === "gradient-free" || this.value === "gradient-bg-6") {
+      if (!textSelect.value.includes("FREE")) {
+        textSelect.value = "Get Your Complete Website - 100% FREE";
+        avatarText.textContent = "Get Your Complete Website - 100% FREE";
+      }
     }
   });
 
@@ -47,25 +54,61 @@ document.addEventListener("DOMContentLoaded", function () {
       );
       this.classList.add("bg-primary", "text-white");
 
-      // If gift or consultation icon is selected, enhance the free consultation message
-      if (iconClass === "fa-gift" || iconClass === "fa-comments") {
-        if (textSelect.value.indexOf("Free") === -1) {
-          textSelect.value = "First Consultation 100% Free";
-          avatarText.textContent = "First Consultation 100% Free";
-        }
+      // If globe icon is selected, emphasize website development
+      if (iconClass === "fa-globe") {
+        textSelect.value = "I Build Websites For FREE - Limited Slots";
+        avatarText.textContent = "I Build Websites For FREE - Limited Slots";
 
-        // Change to special offer gradient
-        if (styleSelect.value !== "gradient-bg-5") {
-          styleSelect.value = "gradient-bg-5";
-          avatarContainer.classList.remove(
-            "gradient-bg",
-            "gradient-bg-2",
-            "gradient-bg-3",
-            "gradient-bg-4",
-            "gradient-bg-5"
-          );
-          avatarContainer.classList.add("gradient-bg-5");
-        }
+        // Change to free website gradient
+        styleSelect.value = "gradient-free";
+        avatarContainer.classList.remove(
+          "gradient-bg",
+          "gradient-bg-2",
+          "gradient-bg-3",
+          "gradient-bg-4",
+          "gradient-bg-5",
+          "gradient-bg-6",
+          "gradient-free"
+        );
+        avatarContainer.classList.add("gradient-free");
+      }
+
+      // If gift icon is selected, emphasize the free website offer
+      if (iconClass === "fa-gift") {
+        textSelect.value = "Get Your Complete Website - 100% FREE";
+        avatarText.textContent = "Get Your Complete Website - 100% FREE";
+
+        // Change to free website gradient
+        styleSelect.value = "gradient-free";
+        avatarContainer.classList.remove(
+          "gradient-bg",
+          "gradient-bg-2",
+          "gradient-bg-3",
+          "gradient-bg-4",
+          "gradient-bg-5",
+          "gradient-bg-6",
+          "gradient-free"
+        );
+        avatarContainer.classList.add("gradient-free");
+      }
+
+      // If consultation icon is selected, use a different free offer message
+      if (iconClass === "fa-comments") {
+        textSelect.value = "FREE Website Development - No Hidden Costs";
+        avatarText.textContent = "FREE Website Development - No Hidden Costs";
+
+        // Change to bold red gradient
+        styleSelect.value = "gradient-bg-6";
+        avatarContainer.classList.remove(
+          "gradient-bg",
+          "gradient-bg-2",
+          "gradient-bg-3",
+          "gradient-bg-4",
+          "gradient-bg-5",
+          "gradient-bg-6",
+          "gradient-free"
+        );
+        avatarContainer.classList.add("gradient-bg-6");
       }
     });
   });
