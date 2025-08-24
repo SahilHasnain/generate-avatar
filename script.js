@@ -20,10 +20,19 @@ document.addEventListener("DOMContentLoaded", function () {
       "gradient-bg",
       "gradient-bg-2",
       "gradient-bg-3",
-      "gradient-bg-4"
+      "gradient-bg-4",
+      "gradient-bg-5"
     );
     // Add selected gradient class
     avatarContainer.classList.add(this.value);
+
+    // If special offer gradient is selected, show pulsing animation
+    const limitTimeOfferBadge = document.querySelector(".animate-pulse");
+    if (this.value === "gradient-bg-5" && limitTimeOfferBadge) {
+      limitTimeOfferBadge.style.display = "inline-block";
+    } else if (limitTimeOfferBadge) {
+      limitTimeOfferBadge.style.display = "inline-block";
+    }
   });
 
   // Update icon when button is clicked
@@ -37,6 +46,27 @@ document.addEventListener("DOMContentLoaded", function () {
         btn.classList.remove("bg-primary", "text-white")
       );
       this.classList.add("bg-primary", "text-white");
+
+      // If gift or consultation icon is selected, enhance the free consultation message
+      if (iconClass === "fa-gift" || iconClass === "fa-comments") {
+        if (textSelect.value.indexOf("Free") === -1) {
+          textSelect.value = "First Consultation 100% Free";
+          avatarText.textContent = "First Consultation 100% Free";
+        }
+
+        // Change to special offer gradient
+        if (styleSelect.value !== "gradient-bg-5") {
+          styleSelect.value = "gradient-bg-5";
+          avatarContainer.classList.remove(
+            "gradient-bg",
+            "gradient-bg-2",
+            "gradient-bg-3",
+            "gradient-bg-4",
+            "gradient-bg-5"
+          );
+          avatarContainer.classList.add("gradient-bg-5");
+        }
+      }
     });
   });
 
